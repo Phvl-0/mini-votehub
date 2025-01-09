@@ -1,4 +1,1 @@
-https://electopia.lovable.app/
-
-
-Create polls and vote.Thank you 
+# Create polls and vote with: https://electopia.lovable.app/
