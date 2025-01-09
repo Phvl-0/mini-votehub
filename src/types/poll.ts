@@ -8,5 +8,6 @@ export interface Poll {
 export interface PollOption {
   id: string;
   text: string;
+  image?: string;
   votes: number;
 }

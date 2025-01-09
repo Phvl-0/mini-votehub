@@ -2,20 +2,43 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { Plus, X } from "lucide-react";
+import { Plus, X, Image as ImageIcon } from "lucide-react";
 import { motion } from "framer-motion";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface CreatePollFormProps {
-  onPollCreated: (poll: { question: string; options: string[] }) => void;
+  onPollCreated: (poll: { question: string; options: { text: string; image?: string }[] }) => void;
 }
+
+const PLACEHOLDER_IMAGES = [
+  "photo-1649972904349-6e44c42644a7",
+  "photo-1488590528505-98d2b5aba04b",
+  "photo-1518770660439-4636190af475",
+  "photo-1461749280684-dccba630e2f6",
+  "photo-1486312338219-ce68d2c6f44d",
+  "photo-1581091226825-a6a2a5aee158",
+  "photo-1485827404703-89b55fcc595e",
+  "photo-1526374965328-7f61d4dc18c5",
+  "photo-1531297484001-80022131f5a1",
+  "photo-1487058792275-0ad4aaf24ca7",
+];
 
 const CreatePollForm = ({ onPollCreated }: CreatePollFormProps) => {
   const [question, setQuestion] = useState("");
-  const [options, setOptions] = useState<string[]>(["", ""]);
+  const [options, setOptions] = useState<Array<{ text: string; image?: string }>>([
+    { text: "" },
+    { text: "" },
+  ]);
   const { toast } = useToast();
 
   const handleAddOption = () => {
-    setOptions([...options, ""]);
+    setOptions([...options, { text: "" }]);
   };
 
   const handleRemoveOption = (indexToRemove: number) => {
@@ -26,7 +49,16 @@ const CreatePollForm = ({ onPollCreated }: CreatePollFormProps) => {
 
   const handleOptionChange = (index: number, value: string) => {
     const newOptions = [...options];
-    newOptions[index] = value;
+    newOptions[index] = { ...newOptions[index], text: value };
+    setOptions(newOptions);
+  };
+
+  const handleImageSelect = (index: number, imageId: string) => {
+    const newOptions = [...options];
+    newOptions[index] = {
+      ...newOptions[index],
+      image: `https://images.unsplash.com/${imageId}?auto=format&fit=crop&w=200&h=200`,
+    };
     setOptions(newOptions);
   };
 
@@ -42,7 +74,7 @@ const CreatePollForm = ({ onPollCreated }: CreatePollFormProps) => {
       return;
     }
 
-    const validOptions = options.filter((opt) => opt.trim() !== "");
+    const validOptions = options.filter((opt) => opt.text.trim() !== "");
     if (validOptions.length < 2) {
       toast({
         title: "Error",
@@ -54,7 +86,7 @@ const CreatePollForm = ({ onPollCreated }: CreatePollFormProps) => {
 
     onPollCreated({ question, options: validOptions });
     setQuestion("");
-    setOptions(["", ""]);
+    setOptions([{ text: "" }, { text: "" }]);
     
     toast({
       title: "Success! 🎉",
@@ -80,25 +112,49 @@ const CreatePollForm = ({ onPollCreated }: CreatePollFormProps) => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.1 }}
-            className="flex items-center gap-2"
+            className="space-y-2"
           >
-            <Input
-              placeholder={`Option ${index + 1}`}
-              value={option}
-              onChange={(e) => handleOptionChange(index, e.target.value)}
-              className="bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 focus:border-purple-500 dark:focus:border-purple-400 transition-colors duration-200"
-            />
-            {options.length > 2 && (
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                onClick={() => handleRemoveOption(index)}
-                className="text-gray-500 hover:text-red-500 transition-colors"
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            )}
+            <div className="flex items-center gap-2">
+              <Input
+                placeholder={`Option ${index + 1}`}
+                value={option.text}
+                onChange={(e) => handleOptionChange(index, e.target.value)}
+                className="bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 focus:border-purple-500 dark:focus:border-purple-400 transition-colors duration-200"
+              />
+              {options.length > 2 && (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => handleRemoveOption(index)}
+                  className="text-gray-500 hover:text-red-500 transition-colors"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              )}
+            </div>
+            
+            <div className="flex items-center gap-2">
+              <Select onValueChange={(value) => handleImageSelect(index, value)}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select candidate image" />
+                </SelectTrigger>
+                <SelectContent>
+                  {PLACEHOLDER_IMAGES.map((imageId) => (
+                    <SelectItem key={imageId} value={imageId}>
+                      Image {PLACEHOLDER_IMAGES.indexOf(imageId) + 1}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {option.image && (
+                <img
+                  src={option.image}
+                  alt={`Option ${index + 1}`}
+                  className="w-10 h-10 rounded-full object-cover"
+                />
+              )}
+            </div>
           </motion.div>
         ))}
       </div>

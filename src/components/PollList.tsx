@@ -38,17 +38,26 @@ const PollList = ({ polls, onVote }: PollListProps) => {
                 key={option.id}
                 className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200"
               >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-700 dark:text-gray-200 font-medium">
-                    {option.text}
-                  </span>
-                  <span className="text-sm text-gray-500 dark:text-gray-400">
-                    {option.votes} votes (
-                    {poll.totalVotes > 0
-                      ? Math.round((option.votes / poll.totalVotes) * 100)
-                      : 0}
-                    %)
-                  </span>
+                <div className="flex items-center gap-4 mb-2">
+                  {option.image && (
+                    <img
+                      src={option.image}
+                      alt={option.text}
+                      className="w-12 h-12 rounded-full object-cover"
+                    />
+                  )}
+                  <div className="flex-1">
+                    <span className="text-gray-700 dark:text-gray-200 font-medium">
+                      {option.text}
+                    </span>
+                    <span className="block text-sm text-gray-500 dark:text-gray-400">
+                      {option.votes} votes (
+                      {poll.totalVotes > 0
+                        ? Math.round((option.votes / poll.totalVotes) * 100)
+                        : 0}
+                      %)
+                    </span>
+                  </div>
                 </div>
                 <div className="relative pt-1">
                   <div className="flex mb-2 items-center justify-between">
