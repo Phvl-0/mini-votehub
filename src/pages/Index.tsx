@@ -49,16 +49,26 @@ const Index = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Voting App</h1>
-      <div className="max-w-2xl mx-auto">
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold mb-4">Create New Poll</h2>
-          <CreatePollForm onPollCreated={handlePollCreated} />
-        </div>
-        <div>
-          <h2 className="text-xl font-semibold mb-4">Active Polls</h2>
-          <PollList polls={polls} onVote={handleVote} />
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-900 dark:to-gray-800">
+      <div className="container mx-auto px-4 py-12">
+        <h1 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-purple-600 to-pink-600 text-transparent bg-clip-text animate-fade-in">
+          Interactive Voting App
+        </h1>
+        <div className="max-w-3xl mx-auto">
+          <div className="mb-12 transform hover:scale-[1.01] transition-transform duration-200">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-6 animate-scale-in">
+              <h2 className="text-2xl font-semibold mb-6 text-gray-800 dark:text-white">
+                Create New Poll
+              </h2>
+              <CreatePollForm onPollCreated={handlePollCreated} />
+            </div>
+          </div>
+          <div className="space-y-6 animate-fade-in">
+            <h2 className="text-2xl font-semibold mb-6 text-gray-800 dark:text-white">
+              Active Polls
+            </h2>
+            <PollList polls={polls} onVote={handleVote} />
+          </div>
         </div>
       </div>
     </div>
