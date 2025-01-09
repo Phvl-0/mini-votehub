@@ -1,2 +1,3 @@
-# Create polls and vote with
+# Create polls and vote🗳️ with⬇️⬇️⬇️
 : *https://electopia.lovable.app/*
+☑️
