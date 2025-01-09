@@ -12,14 +12,15 @@ const Index = () => {
     options,
   }: {
     question: string;
-    options: string[];
+    options: { text: string; image?: string }[];
   }) => {
     const newPoll: Poll = {
       id: uuidv4(),
       question,
-      options: options.map((text) => ({
+      options: options.map((option) => ({
         id: uuidv4(),
-        text,
+        text: option.text,
+        image: option.image,
         votes: 0,
       })),
       totalVotes: 0,
