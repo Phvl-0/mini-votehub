@@ -60,7 +60,7 @@ const Index = () => {
           className="text-center mb-16"
         >
           <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-600 text-transparent bg-clip-text">
-            Vote Hub
+            Votehub
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-300">
             Create and participate in polls with style
