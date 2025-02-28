@@ -38,12 +38,10 @@ import {
   EyeOffIcon,
   ArrowRightIcon,
   AlertCircleIcon,
-  GoogleIcon,
-  FacebookIcon,
   InfoIcon
 } from "lucide-react";
 
-// Create a custom Google icon since it's not in Lucide
+// Custom Google icon component with proper typing
 const GoogleIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"></path>
@@ -51,7 +49,7 @@ const GoogleIcon = () => (
   </svg>
 );
 
-// Create a custom Facebook icon since it's not in Lucide
+// Custom Facebook icon component with proper typing
 const FacebookIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
@@ -383,7 +381,9 @@ const Register = () => {
                           onClick={() => handleOAuthLogin('google')}
                           className="w-full"
                         >
-                          <GoogleIcon className="mr-2 h-4 w-4" />
+                          <span className="mr-2">
+                            <GoogleIcon />
+                          </span>
                           Google
                         </Button>
                         
@@ -393,7 +393,9 @@ const Register = () => {
                           onClick={() => handleOAuthLogin('facebook')}
                           className="w-full"
                         >
-                          <FacebookIcon className="mr-2 h-4 w-4" />
+                          <span className="mr-2">
+                            <FacebookIcon />
+                          </span>
                           Facebook
                         </Button>
                       </div>
